@@ -1,1 +1,96 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mundo dos Achados</title>
+
+<style>
+body {
+  background: #080808;
+  color: white;
+  font-family: Arial;
+  padding: 20px;
+}
+h1, h2 { color: #d4af37; }
+.card {
+  background: #151515;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 500px;
+  margin: auto;
+}
+input, button {
+  width: 100%;
+  padding: 13px;
+  margin: 8px 0;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+input {
+  background: #222;
+  color: white;
+  border: 1px solid #555;
+}
+button {
+  background: #d4af37;
+  border: none;
+  font-weight: bold;
+}
+#resultado {
+  margin-top: 20px;
+  line-height: 1.7;
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+<h1>✦ Mundo dos Achados</h1>
+<p>Seu painel de afiliados Shopee</p>
+
+<h2>Cadastrar produto</h2>
+
+<input id="nome" placeholder="Nome do produto">
+<input id="preco" type="number" placeholder="Preço (R$)">
+<input id="avaliacao" type="number" step="0.1" placeholder="Avaliação">
+<input id="vendas" type="number" placeholder="Quantidade de vendas">
+<input id="comissao" type="number" placeholder="Comissão (%)">
+
+<button onclick="analisar()">Analisar produto</button>
+
+<div id="resultado"></div>
+</div>
+
+<script>
+function analisar() {
+  let nome = document.getElementById("nome").value;
+  let preco = Number(document.getElementById("preco").value);
+  let avaliacao = Number(document.getElementById("avaliacao").value);
+  let vendas = Number(document.getElementById("vendas").value);
+  let comissao = Number(document.getElementById("comissao").value);
+
+  if (!nome || preco <= 0) {
+    alert("Preencha o nome e o preço.");
+    return;
+  }
+
+  let valor = preco * comissao / 100;
+  let categoria = preco < 50 ? "Barato" :
+                  preco <= 300 ? "Intermediário" : "Caro";
+
+  document.getElementById("resultado").innerHTML = `
+    <h2>📊 Análise</h2>
+    <b>Produto:</b> ${nome}<br>
+    <b>Categoria:</b> ${categoria}<br>
+    <b>Avaliação:</b> ${avaliacao} ⭐<br>
+    <b>Vendas:</b> ${vendas}<br>
+    <b>Comissão estimada:</b> R$ ${valor.toFixed(2)}<br><br>
+    <b>Legenda:</b><br>
+    🔥 Achado do Mundo dos Achados! ${nome} por R$ ${preco.toFixed(2)}. Confira!
+  `;
+}
+</script>
+</body>
+</html>
